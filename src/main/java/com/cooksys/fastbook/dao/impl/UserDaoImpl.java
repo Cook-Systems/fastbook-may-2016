@@ -1,6 +1,5 @@
 package com.cooksys.fastbook.dao.impl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cooksys.fastbook.dao.UserDao;
 import com.cooksys.fastbook.models.Friend;
 import com.cooksys.fastbook.models.FriendId;
+import com.cooksys.fastbook.models.Group;
+import com.cooksys.fastbook.models.Like;
 import com.cooksys.fastbook.models.User;
 
 @Repository
@@ -41,12 +42,13 @@ public class UserDaoImpl implements UserDao
 	public User add(User user)
 	{
 		Session session = getSession();
-		
-/*		Serializable id = session.save(user);
-		return (User) session.get(User.class, id);*/
+//		Like newLike = new Like();
+//		newLike.setId(user.getId());
+//		
+//		session.save(newLike);
 		session.save(user);
-		System.out.println(user.getId());
-		return get(user.getId());
+		
+		return get(user.getId() );
 	}
 
 	@Override
@@ -244,6 +246,16 @@ public class UserDaoImpl implements UserDao
 				.createQuery(hql)
 				.setParameter("email", email)
 				.uniqueResult();
+	}
+
+	@Override
+	public List<Group> getUsersGroups(Integer id)
+	{
+		Session session = getSession();
+		
+		String hql= "SELECT gu.group FROM GroupUser gu WHERE gu.id.userId= :userId";
+		
+		return session.createQuery(hql).setInteger("userId", id).list();
 	}
 
 }
