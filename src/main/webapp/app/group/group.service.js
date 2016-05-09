@@ -48,7 +48,11 @@
       this.createGroup = (userId, group) => {
         return $http
           .post('./api/groups/' + userId, group)
-          .then(response => response.data)
+          .then(response => {
+            console.log('createdGroup: ' + response.data.id)
+            this.group = response.data;
+            $state.go('group', {groupId: this.group.id})
+          })
       }
 
       this.joinGroup = (groupId, loggedInUser) => {

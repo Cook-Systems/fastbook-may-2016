@@ -16,7 +16,7 @@
       <md-divider></md-divider>
       <md-virtual-repeat-container flex>
         <div md-virtual-repeat="group in $nav.group.listOfGroups" class="repeated-item-vertical">
-          <a ui-sref="profile ({name: group.name})" style="text-decoration: none;">{{group.name}}</a>
+          <a ui-sref="group({groupId: group.id})" style="text-decoration: none;">{{group.name}}</a>
         </div>
       </md-virtual-repeat-container>
     </div>
