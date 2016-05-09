@@ -85,10 +85,10 @@ public class GroupDaoImpl implements GroupDao
 	{
 		Session session = getSession();
 		
-		String hql= "SELECT gu.user FROM GroupUser gu WHERE gu.id.groupId= :userId AND gu.owner= :owner";
+		String hql= "SELECT gu.user FROM GroupUser gu WHERE gu.id.groupId= :userId AND gu.owner=1";
 		
 		
-		return (User) session.createQuery(hql).setInteger("userId", id).setBoolean("owner", true);
+		return (User) session.createQuery(hql).setInteger("userId", id).uniqueResult();
 	}
 
 	@Override
