@@ -11,13 +11,14 @@
 
     this.listOfUsers;
     this.profileUser;
+    this.post;
 
     this.setProfileUser = (user) => {
       $log.debug(user);
       this.profileUser = user;
       $log.debug('Profile user: ' + this.profileUser)
       $log.debug('Last Name: ' + this.profileUser.lastName)
-    }
+    };
 
     this.getAllUsers = function() {
       return $http
@@ -46,10 +47,27 @@
             .then(response => response.data)
         };
 
-    this.getFriendRequestOnProfile = function(id, loggedInUserId) {
+    this.getUserGroups = function(id) {
+          return $http
+            .get('./api/users/groups/' + id)
+            .then(response => response.data)
+    };
+
+    this.getUsersPosts = (userId) =>{
       return $http
-        .get('./api/users/' + id + '/getRequest/' + loggedInUserId)
+        .get('./api/posts/user/' + userId)
+        .then(response =>{
+          $log.debug(response.data);
+          return response.data;
+        });
+      }
+
+    this.postToUserTimeline = (userId, post) =>{
+      return $http
+        .post('./api/posts/user/' + userId, post)
         .then(response => response.data)
     };
-  }
+
+
+  };
 })();

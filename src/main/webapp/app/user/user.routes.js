@@ -15,6 +15,12 @@
           }],
           userFriendList: ['userService', '$stateParams', function(userService, $stateParams){
             return userService.getUserFriends($stateParams.id);
+          }],
+          userPosts: ['userService', '$stateParams', function (userService, $stateParams) {
+            return userService.getUsersPosts($stateParams.id);
+          }],
+          userGroupList: ['userService', '$stateParams', function(userService, $stateParams){
+            return userService.getUserGroups($stateParams.id);
           }]
         },
       data: {
