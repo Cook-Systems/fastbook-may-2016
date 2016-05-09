@@ -53,5 +53,4 @@
           .joinGroup(this.profileGroup.id, this.loggedInUser)
           };
       }
-    }
 })();
