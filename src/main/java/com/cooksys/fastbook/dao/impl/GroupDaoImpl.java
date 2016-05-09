@@ -88,11 +88,11 @@ public class GroupDaoImpl implements GroupDao
 	{
 		Session session = getSession();
 		
-		User sessionUser = (User) session
-			.createQuery("SELECT gu.user FROM GroupUser gu WHERE gu.id.groupId= :userId")
-			.setInteger("userId", user.getId());
-		
-		if (sessionUser.getId() != user.getId()) {
+//		User sessionUser = (User) session
+//			.createQuery("SELECT gu.user FROM GroupUser gu WHERE gu.id.groupId= :userId")
+//			.setInteger("userId", user.getId());
+//		
+//		if (sessionUser.getId() != user.getId()) {
 		
 		GroupUserId gui = new GroupUserId(id,user.getId());
 		
@@ -102,9 +102,9 @@ public class GroupDaoImpl implements GroupDao
 		
 		return get(id);
 	}
-		else 
-			return null;
-	}
+//		else 
+//			return null;
+//	}
 
 	@Override
 	public List<Group> queryGroups(String name)
