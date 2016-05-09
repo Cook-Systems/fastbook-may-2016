@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cooksys.fastbook.dao.PostDao;
 import com.cooksys.fastbook.models.Post;
 import com.cooksys.fastbook.models.PostWithLikeData;
-import com.cooksys.fastbook.models.User;
 
 @Repository
 @Transactional
@@ -42,18 +41,6 @@ public class PostDaoImpl implements PostDao
 		Session session = sessionFactory.getCurrentSession();
 		
 		String hql = "select p from User u inner join u.posts p where u.id = :userId";
-		
-		ArrayList<Post> posts = new ArrayList<>();
-		
-		posts.addAll(session
-			.createQuery(hql)
-			.setParameter("userId", userId)
-			.list());
-		
-		for(Post p : posts)
-		{
-			System.out.println(p.getText() );
-		}
 		
 		hql = "select new com.cooksys.fastbook.models.PostWithLikeData(p, count(p.id), "
 				+ "CASE l.user.id WHEN :loggedInId THEN true "
@@ -99,6 +86,20 @@ public class PostDaoImpl implements PostDao
 //		session.save(post);
 		
 		return post;
+	}
+
+	@Override
+	public Post add(Post post)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Post addPostToGroup(Integer groupId, Post post)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
