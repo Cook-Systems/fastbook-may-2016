@@ -28,6 +28,7 @@
       <md-button class="md-raised md-primary" ng-disabled="form-login.$invalid" ng-click=$login.login()>
         Login
       </md-button>
+      <div>{{$login.errorMessage}}</div>
     </div>
   </form>
 </div>

@@ -55,7 +55,7 @@
 
     this.getUsersPosts = (userId) =>{
       return $http
-        .get('./api/posts/user/' + userId)
+        .post('./api/posts/user/getPosts/' + userId, accessService.currentUser)
         .then(response =>{
           $log.debug(response.data);
           return response.data;
@@ -68,6 +68,8 @@
         .then(response => response.data)
     };
 
-
+    this.likeUserPost = () => {
+      
+    }
   };
 })();

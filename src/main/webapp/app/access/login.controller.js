@@ -14,7 +14,12 @@
     this.credentials;
     this.login = () => {
       $log.debug('Calling LoginController.login()')
-      accessService.login(this.credentials);
+      accessService
+        .login(this.credentials)
+        .then(result => {
+          // User or password invalid - we don't come back if the user logs in
+          this.errorMessage = 'Invalid email or password!';
+        })
     }
   }
 })();
