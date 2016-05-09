@@ -35,7 +35,7 @@ public class PostController {
 	 * @param userId
 	 * @return list of posts for a user
 	 */
-	// fastbook/api/posts/user/{userId}
+	// fastbook/api/posts/user/getPosts/{userId}
 	@RequestMapping(value = "/user/getPosts/{userId}", method = RequestMethod.POST)
 	public List<PostWithLikeData> getPostsForUser(@PathVariable Integer userId, @RequestBody User loggedInUser) {
 		return postDao.getPostsForUser(userId, loggedInUser.getId());
@@ -47,7 +47,7 @@ public class PostController {
 	 * @param groupId
 	 * @return list of posts for a group
 	 */
-	// fastbook/api/posts/group/{groupId}
+	// fastbook/api/posts/group/getPosts/{groupId}
 	@RequestMapping(value = "/group/getPosts/{groupId}", method = RequestMethod.POST)
 	public List<PostWithLikeData> getPostsForGroup(@PathVariable Integer groupId, @RequestBody User loggedInUser) {
 		return postDao.getPostsForGroup(groupId, loggedInUser.getId());
