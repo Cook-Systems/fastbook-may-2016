@@ -5,12 +5,13 @@
     .module('fastbook.group')
     .service('groupService', GroupService);
 
-    GroupService.$inject = ['$http', '$state', '$log'];
+    GroupService.$inject = ['$http', '$state', '$log', 'accessService'];
 
     function GroupService(
       $http,
       $state,
-      $log
+      $log,
+      accessService
     ) {
 
       this.group;
@@ -34,7 +35,7 @@
 
       this.getGroupPosts = (groupId) => {
         return $http
-          .get('./api/posts/group/' + groupId)
+          .post('./api/posts/group/getPosts/' + groupId, accessService.currentUser)
           .then(response => response.data)
       }
 
