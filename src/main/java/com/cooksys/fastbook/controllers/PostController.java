@@ -16,15 +16,16 @@ import com.cooksys.fastbook.models.User;
 
 @RestController
 @RequestMapping(value = "/posts")
-public class PostController 
-{
+public class PostController {
 	@Autowired
 	private PostDao postDao;
-	
+
+	/**
+	 * @return list of all posts
+	 */
 	// fastbook/api/posts/
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Post> index()
-	{
+	public List<Post> index() {
 		return postDao.index();
 	}
 

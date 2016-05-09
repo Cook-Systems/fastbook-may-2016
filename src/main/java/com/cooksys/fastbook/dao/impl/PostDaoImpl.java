@@ -2,6 +2,7 @@ package com.cooksys.fastbook.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,30 +10,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cooksys.fastbook.controllers.GroupController;
+import com.cooksys.fastbook.controllers.UserController;
 import com.cooksys.fastbook.dao.PostDao;
+import com.cooksys.fastbook.models.Group;
 import com.cooksys.fastbook.models.Post;
 import com.cooksys.fastbook.models.PostWithLikeData;
 
 @Repository
 @Transactional
-public class PostDaoImpl implements PostDao 
-{
+public class PostDaoImpl implements PostDao {
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	private Session getSession()
-	{
+
+	@Autowired
+	UserController userController;
+	@Autowired
+	GroupController groupController;
+
+	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Post> index()
-	{
+	public List<Post> index() {
 		Session session = getSession();
-		return session
-				.createQuery("from Post")
-				.list();
+		return session.createQuery("from Post order by id desc").list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -89,17 +93,18 @@ public class PostDaoImpl implements PostDao
 	}
 
 	@Override
-	public Post add(Post post)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Post addPostToGroup(Integer groupId, Post post) {
+		Session session = sessionFactory.getCurrentSession();
 
-	@Override
-	public Post addPostToGroup(Integer groupId, Post post)
-	{
-		// TODO Auto-generated method stub
-		return null;
+		groupWall = groupController.getGroup(groupId);
+
+		Set<Group> groups = post.getGroups();
+		groups.add(groupWall);
+		post.setGroups(groups);
+
+		session.save(post);
+
+		return post;
 	}
 
 }

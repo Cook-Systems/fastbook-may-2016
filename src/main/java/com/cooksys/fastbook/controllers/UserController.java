@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cooksys.fastbook.dao.UserDao;
 import com.cooksys.fastbook.models.Friend;
+import com.cooksys.fastbook.models.Group;
 import com.cooksys.fastbook.models.User;
 
 @RestController
@@ -61,7 +62,7 @@ public class UserController
 		return userDao.getMyPendingRequests(id);
 	}
 	
-	// fastbook/api/users/{id}/requests
+	// fastbook/api/users/{id}/addRequest
 	// Request body contains logged in user
 	@RequestMapping(value = "/{id}/addRequest", method = RequestMethod.PUT)
 	public Friend addFriendRequest(@PathVariable Integer id, @RequestBody User user)
@@ -104,4 +105,11 @@ public class UserController
 	{
 		return userDao.getByEmail(email);
 	}
+	
+	@RequestMapping(value = "/groups/{id}", method = RequestMethod.GET)
+	public List<Group> getUsersGroups(@PathVariable Integer id)
+	{
+		return userDao.getUsersGroups(id);
+	}
+	
 }
