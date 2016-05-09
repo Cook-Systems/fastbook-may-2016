@@ -1,6 +1,5 @@
 package com.cooksys.fastbook.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +15,7 @@ import com.cooksys.fastbook.dao.PostDao;
 import com.cooksys.fastbook.models.Group;
 import com.cooksys.fastbook.models.Post;
 import com.cooksys.fastbook.models.PostWithLikeData;
+import com.cooksys.fastbook.models.User;
 
 @Repository
 @Transactional
@@ -44,9 +44,7 @@ public class PostDaoImpl implements PostDao {
 	public List<PostWithLikeData> getPostsForUser(Integer userId, Integer loggedInId) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		String hql = "select p from User u inner join u.posts p where u.id = :userId";
-		
-		hql = "select new com.cooksys.fastbook.models.PostWithLikeData(p, count(p.id), "
+		String hql = "select new com.cooksys.fastbook.models.PostWithLikeData(p, count(p.id), "
 				+ "CASE l.user.id WHEN :loggedInId THEN true "
 				+ "ELSE false END) "
 				+ "from User u "
@@ -63,31 +61,40 @@ public class PostDaoImpl implements PostDao {
 				.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Post> getPostsForGroup(Integer groupId, Integer loggedInId) {
+	public List<PostWithLikeData> getPostsForGroup(Integer groupId, Integer loggedInId) {
 		Session session = sessionFactory.getCurrentSession();
+		
+		String hql = "select new com.cooksys.fastbook.models.PostWithLikeData(p, count(p.id), "
+				+ "CASE l.user.id WHEN :loggedInId THEN true "
+				+ "ELSE false END) "
+				+ "from Group g "
+				+ "inner join g.posts p "
+				+ "left join p.likes l "
+				+ "where g.id = :groupId "
+				+ "group by p.id "
+				+ "order by p.timestamp desc";
 
-		@SuppressWarnings("unchecked")
-		List<Post> results = session
-				.createQuery(
-						"from Post p inner join p.groups g where g.id = :groupId order by p.id desc")
-				.setInteger("groupId", groupId).list();
-
-		return results;
+		return session
+				.createQuery(hql)
+				.setParameter("groupId", groupId)
+				.setParameter("loggedInId", loggedInId)
+				.list();
 	}
 
 	@Override
 	public Post addPostToUser(Integer userId, Post post) {
-//		Session session = sessionFactory.getCurrentSession();
-//
-//		User userWall = new User();
-//		userWall = userController.getUser(userId);
-//
-//		Set<User> users = post.getUsers();
-//		users.add(userWall);
-//		post.setUsers(users);
-//
-//		session.save(post);
+		Session session = sessionFactory.getCurrentSession();
+
+		User userWall = new User();
+		userWall = userController.getUser(userId);
+
+		Set<User> users = post.getUsers();
+		users.add(userWall);
+		post.setUsers(users);
+
+		session.save(post);
 		
 		return post;
 	}
@@ -96,7 +103,7 @@ public class PostDaoImpl implements PostDao {
 	public Post addPostToGroup(Integer groupId, Post post) {
 		Session session = sessionFactory.getCurrentSession();
 
-		groupWall = groupController.getGroup(groupId);
+		Group groupWall = groupController.getGroup(groupId);
 
 		Set<Group> groups = post.getGroups();
 		groups.add(groupWall);

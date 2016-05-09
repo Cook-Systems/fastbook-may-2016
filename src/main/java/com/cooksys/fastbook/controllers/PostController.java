@@ -49,7 +49,7 @@ public class PostController {
 	 */
 	// fastbook/api/posts/group/{groupId}
 	@RequestMapping(value = "/group/getPosts/{groupId}", method = RequestMethod.POST)
-	public List<Post> getPostsForGroup(@PathVariable Integer groupId, @RequestBody User loggedInUser) {
+	public List<PostWithLikeData> getPostsForGroup(@PathVariable Integer groupId, @RequestBody User loggedInUser) {
 		return postDao.getPostsForGroup(groupId, loggedInUser.getId());
 	}
 
