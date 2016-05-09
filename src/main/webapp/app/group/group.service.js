@@ -43,6 +43,7 @@
         return $http
           .post('./api/posts/group/' + groupId, post)
           .then(response => response.data)
+          .then($state.reload());
       }
 
       this.createGroup = (userId, group) => {
@@ -59,6 +60,7 @@
         return $http
           .put('./api/groups/' + groupId, loggedInUser)
           .then(response => response.data)
+          .then($state.reload());
       }
 
       // not implemented yet

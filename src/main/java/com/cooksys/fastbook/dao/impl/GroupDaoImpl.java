@@ -95,7 +95,6 @@ public class GroupDaoImpl implements GroupDao
 		if (sessionUser.getId() != user.getId()) {
 		
 		GroupUserId gui = new GroupUserId(id,user.getId());
-/*		GroupUser newGroup = session.get(GroupUser.class, gui);*/
 		
 		GroupUser created = new GroupUser(gui, get(id), user, false);
 		
