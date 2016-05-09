@@ -61,7 +61,7 @@ public class GroupController
 		return groupDao.addUserToGroup(id, user);
 	}
 	
-	// fastbook/api/users/find/{name}
+	// fastbook/api/groups/find/{name}
 		@RequestMapping(value = "/find/{name}", method = RequestMethod.GET)
 		public List<Group> queryGroups(@PathVariable String name)
 		{
