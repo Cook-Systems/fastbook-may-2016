@@ -48,13 +48,14 @@ public class GroupDaoImpl implements GroupDao
 		
 		session.save(group);
 		GroupUserId gui = new GroupUserId(group.getId(),id);
+		GroupUser newGroup = session.get(GroupUser.class, gui);
 		
 		GroupUser created = new GroupUser(gui, group, userController.getUser(id), true);
 		
 		
 		session.save(created);
 		
-		return get(group.getId());
+		return get(group.getId() );
 	}
 
 	@Override
@@ -84,22 +85,16 @@ public class GroupDaoImpl implements GroupDao
 	{
 		Session session = getSession();
 		
-		String hql= "SELECT gu.user FROM GroupUser gu WHERE gu.id.groupId= :userId AND gu.owner= :owner";
+		String hql= "SELECT gu.user FROM GroupUser gu WHERE gu.id.groupId= :userId AND gu.owner=1";
 		
 		
-		return (User) session.createQuery(hql).setInteger("userId", id).setBoolean("owner", true);
+		return (User) session.createQuery(hql).setInteger("userId", id).uniqueResult();
 	}
 
 	@Override
 	public Group addUserToGroup(Integer id, User user)
 	{
 		Session session = getSession();
-		
-		User sessionUser = (User) session
-			.createQuery("SELECT gu.user FROM GroupUser gu WHERE gui.id.groupId= :userId")
-			.setInteger("userId", user.getId());
-		
-		if (sessionUser.getId() != user.getId()) {
 		
 		GroupUserId gui = new GroupUserId(id,user.getId());
 		GroupUser newGroup = session.get(GroupUser.class, gui);
@@ -109,10 +104,6 @@ public class GroupDaoImpl implements GroupDao
 		session.save(created);
 		
 		return get(id);
-		
-		}
-		else 
-			return null;
 	}
 
 	@Override
