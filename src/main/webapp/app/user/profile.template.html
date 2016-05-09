@@ -77,12 +77,12 @@
                     {{entry.post.user.firstName}} {{entry.post.user.lastName}}
                   </a>
 
-                  <i class="material-icons"> thumb_up </i> {{entry.likeCount}}
+                  <img ng-src="app/user/like.jpg"/> {{entry.likeCount}}
                   <md-button class="md-raised" ng-click="LIKEPOST" ng-if="!entry.status">
-                    <i class="material-icons"> thumb_up </i> Like
+                    <img ng-src="app/user/like.jpg"/> Like
                   </md-button>
 
-                  <i class="material-icons" ng-if="entry.status"> check_circle </i>
+                  <img ng-src="app/user/Check_Mark.png" ng-if="entry.status"/>
                 </b>
                 </br>
                 {{entry.post.text}}
