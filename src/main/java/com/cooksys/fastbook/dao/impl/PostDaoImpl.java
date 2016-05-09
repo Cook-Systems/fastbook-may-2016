@@ -14,6 +14,7 @@ import com.cooksys.fastbook.controllers.UserController;
 import com.cooksys.fastbook.dao.PostDao;
 import com.cooksys.fastbook.models.Group;
 import com.cooksys.fastbook.models.Post;
+import com.cooksys.fastbook.models.PostWithLikeData;
 import com.cooksys.fastbook.models.User;
 
 @Repository
@@ -38,31 +39,48 @@ public class PostDaoImpl implements PostDao {
 		return session.createQuery("from Post order by id desc").list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Post> getPostsForUser(Integer userId) {
+	public List<PostWithLikeData> getPostsForUser(Integer userId, Integer loggedInId) {
 		Session session = sessionFactory.getCurrentSession();
+		
+		String hql = "select new com.cooksys.fastbook.models.PostWithLikeData(p, count(p.id), "
+				+ "CASE l.user.id WHEN :loggedInId THEN true "
+				+ "ELSE false END) "
+				+ "from User u "
+				+ "inner join u.posts p "
+				+ "left join p.likes l "
+				+ "where u.id = :userId "
+				+ "group by p.id "
+				+ "order by p.timestamp desc";
 
-		@SuppressWarnings("unchecked")
-		List<Post> results = session
-				.createQuery(
-						"select p from User u inner join u.posts p where u.id = :userId order by p.id desc")
-				.setInteger("userId", userId).list();
-
-		return results;
-
+		return session
+				.createQuery(hql)
+				.setParameter("userId", userId)
+				.setParameter("loggedInId", loggedInId)
+				.list();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Post> getPostsForGroup(Integer groupId) {
+	public List<PostWithLikeData> getPostsForGroup(Integer groupId, Integer loggedInId) {
 		Session session = sessionFactory.getCurrentSession();
+		
+		String hql = "select new com.cooksys.fastbook.models.PostWithLikeData(p, count(p.id), "
+				+ "CASE l.user.id WHEN :loggedInId THEN true "
+				+ "ELSE false END) "
+				+ "from Group g "
+				+ "inner join g.posts p "
+				+ "left join p.likes l "
+				+ "where g.id = :groupId "
+				+ "group by p.id "
+				+ "order by p.timestamp desc";
 
-		@SuppressWarnings("unchecked")
-		List<Post> results = session
-				.createQuery(
-						"select p from Group g inner join g.posts p where g.id = :groupId order by p.id desc")
-				.setInteger("groupId", groupId).list();
-
-		return results;
+		return session
+				.createQuery(hql)
+				.setParameter("groupId", groupId)
+				.setParameter("loggedInId", loggedInId)
+				.list();
 	}
 
 	@Override
@@ -77,7 +95,7 @@ public class PostDaoImpl implements PostDao {
 		post.setUsers(users);
 
 		session.save(post);
-
+		
 		return post;
 	}
 
@@ -85,8 +103,7 @@ public class PostDaoImpl implements PostDao {
 	public Post addPostToGroup(Integer groupId, Post post) {
 		Session session = sessionFactory.getCurrentSession();
 
-		Group groupWall = new Group();
-		groupWall = groupController.getGroup(groupId);
+		Group groupWall = groupController.getGroup(groupId);
 
 		Set<Group> groups = post.getGroups();
 		groups.add(groupWall);

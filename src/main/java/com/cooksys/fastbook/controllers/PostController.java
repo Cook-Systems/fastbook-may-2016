@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cooksys.fastbook.dao.PostDao;
 import com.cooksys.fastbook.models.Post;
+import com.cooksys.fastbook.models.PostWithLikeData;
+import com.cooksys.fastbook.models.User;
 
 @RestController
 @RequestMapping(value = "/posts")
@@ -34,9 +36,9 @@ public class PostController {
 	 * @return list of posts for a user
 	 */
 	// fastbook/api/posts/user/{userId}
-	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
-	public List<Post> getPostsForUser(@PathVariable Integer userId) {
-		return postDao.getPostsForUser(userId);
+	@RequestMapping(value = "/user/getPosts/{userId}", method = RequestMethod.POST)
+	public List<PostWithLikeData> getPostsForUser(@PathVariable Integer userId, @RequestBody User loggedInUser) {
+		return postDao.getPostsForUser(userId, loggedInUser.getId());
 	}
 
 	/**
@@ -46,9 +48,9 @@ public class PostController {
 	 * @return list of posts for a group
 	 */
 	// fastbook/api/posts/group/{groupId}
-	@RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
-	public List<Post> getPostsForGroup(@PathVariable Integer groupId) {
-		return postDao.getPostsForGroup(groupId);
+	@RequestMapping(value = "/group/getPosts/{groupId}", method = RequestMethod.POST)
+	public List<PostWithLikeData> getPostsForGroup(@PathVariable Integer groupId, @RequestBody User loggedInUser) {
+		return postDao.getPostsForGroup(groupId, loggedInUser.getId());
 	}
 
 	/**
