@@ -51,7 +51,7 @@
       this.joinGroup = () => {
         groupService
           .joinGroup(this.profileGroup.id, this.loggedInUser)
-          });
+          };
       }
     }
 })();
