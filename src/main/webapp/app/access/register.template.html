@@ -9,7 +9,7 @@
   <div style="text-align: center; margin-top: 10px;">
     <form class="form-register" name="register" novalidate>
 
-	    <div class="input-field">
+      <div class="input-field">
         <input id="first-name" type="text" class="validate" required ng-model="$register.user.firstName">
         <span>
           <label for="first-name">First Name</label>
@@ -52,11 +52,11 @@
         <md-button class="md-raised md-primary" ng-disabled="form-register.$invalid" ng-click=$register.register()>
           Register
         </md-button>
-         <md-button class="md-raised md-primary" ng-click="$register.user = null;">
+        <md-button class="md-raised md-primary" ng-click="$register.user = null;">
           Cancel
         </md-button>
+        <div>{{$register.errorMessage}}</div>
       </div>
-
     </form>
   </div>
 </div>
