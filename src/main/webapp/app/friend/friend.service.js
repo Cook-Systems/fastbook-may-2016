@@ -30,7 +30,6 @@
     };
 
     this.getFriendRequests = function(id) {
-
         $log.debug('friendService - getFriendRequests - initialize');
 
         return $http
@@ -38,8 +37,7 @@
           .then(response => {
             $log.debug('friendService - getFriendRequests - response ' + response);
             return response.data
-
-          });
+            });
       };
 
     this.addFriendRequest = function(userId) {
@@ -52,20 +50,20 @@
       return $http
         .delete('./api/users/' + userId + '/denyRequest/' + accessService.currentUser.id)
         .then(response => response.data);
-    }
+    };
 
     this.acceptRequest = function(userId, friend) {
       $log.debug('Accepting friend: ' + friend);
       return $http
         .patch('./api/users/' + userId + '/acceptRequest', friend)
         .then(response => response.data);
-    }
+    };
 
     this.getRelation = function(userId) {
       return $http
         .get('./api/users/' + userId + '/getRequest/' + accessService.currentUser.id)
         .then(response => response.data);
-    }
+    };
   }
 
 })();

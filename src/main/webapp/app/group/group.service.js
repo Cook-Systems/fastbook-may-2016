@@ -10,14 +10,12 @@
     function GroupService(
       $http,
       $state,
-      $log,
-      accessService
+      $log
     ) {
 
       this.group;
       this.listOfGroups;
       this.groupPost;
-      this.currentUser = accessService;
 
       this.getGroupsByName = function(name) {
        return $http
@@ -34,28 +32,27 @@
           .then(response => response.data)
       }
 
-      this.getGroupPosts = (id) => {
+      this.getGroupPosts = (groupId) => {
         return $http
-          .get('./api/posts/group/' + id)
+          .get('./api/posts/group/' + groupId)
           .then(response => response.data)
       }
 
-      this.postToGroup = (groupPost) => {
-        groupPost.user = this.currentUser;
+      this.postToGroup = (groupId, post) => {
         return $http
-          .post('./api/posts/group/' + groupService.group.id, groupPost)
+          .post('./api/posts/group/' + groupId, post)
           .then(response => response.data)
       }
 
-      this.createGroup = (id, groupName) => {
+      this.createGroup = (userId, group) => {
         return $http
-          .post('./api/groups/' + id, groupName)
+          .post('./api/groups/' + userId, group)
           .then(response => response.data)
       }
 
-      this.joinGroup = (id) => {
+      this.joinGroup = (groupId, loggedInUser) => {
         return $http
-          .put('./api/groups/' + id)
+          .put('./api/groups/' + groupId, loggedInUser)
           .then(response => response.data)
       }
 
@@ -66,15 +63,15 @@
       //     .then(response => response.data)
       // }
 
-      this.getGroup = (id) => {
+      this.getGroup = (groupId) => {
         return $http
-          .get('./api/groups/' + id)
+          .get('./api/groups/' + groupId)
           .then(response => response.data)
       }
 
-      this.getGroupsOwner = (id) => {
+      this.getGroupsOwner = (groupId) => {
         return $http
-          .get('./api/groups/owner/' + id)
+          .get('./api/groups/owner/' + groupId)
           .then(response => response.data)
       }
     }

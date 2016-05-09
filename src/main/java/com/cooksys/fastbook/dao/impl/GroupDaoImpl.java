@@ -48,14 +48,13 @@ public class GroupDaoImpl implements GroupDao
 		
 		session.save(group);
 		GroupUserId gui = new GroupUserId(group.getId(),id);
-		GroupUser newGroup = session.get(GroupUser.class, gui);
 		
 		GroupUser created = new GroupUser(gui, group, userController.getUser(id), true);
 		
 		
 		session.save(created);
 		
-		return get(group.getId() );
+		return get(group.getId());
 	}
 
 	@Override

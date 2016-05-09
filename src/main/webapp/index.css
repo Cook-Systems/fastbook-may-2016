@@ -26,10 +26,18 @@ h2 {
   font-weight: 400;
   padding-right: : 20px;
 }
+a {
+  font-weight: bold;
+  text-decoration: none;
+  color: rgb(63,81,181);
+}
 
-span {
-  color: black;
-  font-family: 'Roboto';
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: rgb(63,81,181);
+}
+.md-toolbar-tools h3 {
+  font-size: 12px;
 }
 
 .column,
@@ -68,6 +76,13 @@ span {
 
 .textCenter {
   text-align: center;
+}
+
+.vertical-divider {
+  border-top-width: 0;
+  border-right-width: 1px;
+  border-right-style: solid;
+  height: 100%;
 }
 
 .vrepeatContainer #vertical-container {

@@ -22,19 +22,15 @@
 
 
     ) {
-
       this.groupService = groupService;
 
-      this.create = () => {
-        $log.debug(this.group.name);
-        $log.debug(accessService.currentUser.id);
-        groupService
-          .createGroup(accessService.currentUser.id, this.group)
-          .then(createdGroup => groupService.group = createdGroup)
-          $state.go('group', {id: groupService.group.id})
+            this.create = () => {
+              $log.debug(this.group.name);
+              $log.debug(accessService.currentUser.id);
+              $log.debug(this.group)
+              groupService
+                .createGroup(accessService.currentUser.id, this.group)
+            };
       }
-
-
-    }
     }
 )();

@@ -1,20 +1,24 @@
-<div layout="row" style="height: 100vh;">
-  <md-virtual-repeat-container flex>
-    <div md-virtual-repeat="user in $nav.user.listOfUsers" class="repeated-item-vertical">
+<md-content>
+  <div layout="row centered" layout-padding>
 
-      <a ui-sref="profile ({id: user.id})">
-              {{user.firstName}} {{user.lastName}}</a>
-
+    <div flex layout="column" layout-padding style="height: 100vh;">
+      <h2>Users</h2>
+      <md-divider></md-divider>
+      <md-virtual-repeat-container flex>
+        <div md-virtual-repeat="user in $nav.user.listOfUsers" class="repeated-item-vertical">
+          <a ui-sref="profile ({id: user.id})">{{user.firstName}} {{user.lastName}}</a>
+        </div>
+      </md-virtual-repeat-container>
     </div>
-  </md-virtual-repeat-container>
 
-  <md-virtual-repeat-container flex>
-    <div md-virtual-repeat="group in $nav.group.listOfGroups" class="repeated-item-vertical">
-
-      <a ui-sref="profile ({name: group.name})">
-              {{group.name}}</a>
-
+    <div flex layout="column" layout-padding style="height: 100vh;">
+      <h2>Groups</h2>
+      <md-divider></md-divider>
+      <md-virtual-repeat-container flex>
+        <div md-virtual-repeat="group in $nav.group.listOfGroups" class="repeated-item-vertical">
+          <a ui-sref="profile ({name: group.name})" style="text-decoration: none;">{{group.name}}</a>
+        </div>
+      </md-virtual-repeat-container>
     </div>
-  </md-virtual-repeat-container>
-
-</div>
+  </div>
+</md-content>

@@ -6,31 +6,35 @@
     GroupController.$inject = [
       'groupService',
       'userService',
+      'accessService',
       '$state',
       '$scope',
       '$mdDialog',
       '$log',
+      'chosenGroup',
       'groupMembers',
-      'posts',
-      'groupOwner'
+      'posts'
     ];
 
     function GroupController(
       groupService,
       userService,
+      accessService,
       $state,
       $scope,
+      $mdDialog,
       $log,
+      chosenGroup,
       groupMembers,
-      posts,
-      groupOwner
-
+      posts
     ) {
 
       this.groupService = groupService;
+      this.profileGroup = chosenGroup;
       this.groupMembers = groupMembers;
       this.posts = posts;
-      this.groupOwner = groupOwner;
+      this.groupPostObject = groupService.groupPost;
+      this.loggedInUser = accessService.currentUser;
 
       $scope.showAlert = function(ev) {
     // Appending dialog to document.body to cover sidenav in docs app
@@ -46,32 +50,28 @@
         .ok('OK')
         .targetEvent(ev)
         );
-      }
+      };
 
-      this.createPostInGroup = () =>{
+      this.post = () => {
+        $log.debug(this.groupPostObject.text)
         $scope.date = new Date();
-        this.groupService.groupPost.timestamp = $scope.date;
-        groupService.postToGroup(this.groupService);
-
-}
-      this.create = () => {
-        $log.debug($group.group.name);
-        $log.debug(userService.currentUser.id);
-        groupService
-          .createGroup(userService.currentUser.id, $group.group)
-          .then(createdGroup => groupService.group = createdGroup)
-          .$state.go('group', {id: groupService.group.id})
-      }
+        this.groupPostObject.timestamp = $scope.date;
+        this.groupPostObject.user = this.loggedInUser;
+        $log.debug(this.groupPostObject)
+        $log.debug(this.profileGroup.id)
+          return groupService
+          .postToGroup(this.profileGroup.id, this.groupPostObject)
+          .then($state.go($state.current, {}, {reload: true}));
+        };
 
       this.joinGroup = () => {
-
         groupService
-          .joinGroup(groupService.group.id, userService.currentUser.id)
+          .joinGroup(this.profileGroup.id, this.loggedInUser)
           .then(response => {
             if (response == null) {
               $scope.showAlert()
             }
-          })
+          });
       }
     }
 })();

@@ -9,16 +9,18 @@
         controller: 'GroupController',
         controllerAs: '$group',
         resolve: {
+          chosenGroup: ['groupService', '$stateParams', function(groupService, $stateParams) {
+            return groupService.getGroup($stateParams.groupId);
+          }],
           groupMembers: ['groupService', '$stateParams', function (groupService, $stateParams) {
-            return groupService.getUsersInGroup($stateParams.groupId)
+            return groupService.getUsersInGroup($stateParams.groupId);
           }],
           posts: ['groupService', '$stateParams', function (groupService, $stateParams) {
-            return groupService.getGroupPosts($stateParams.groupId)
-          }],
-          groupOwner: ['groupService', '$stateParams', function (groupService, $stateParams) {
-            return groupService.getGroupsOwner($stateParams.groupId)
-
+            return groupService.getGroupPosts($stateParams.groupId);
           }]
+          //groupOwner: ['groupService', '$stateParams', function (groupService, $stateParams) {
+          //  return groupService.getGroupsOwner($stateParams.groupId);
+        //  }]
         },
         data: {
           loggedIn: true

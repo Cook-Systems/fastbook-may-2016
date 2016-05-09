@@ -16,7 +16,7 @@
           }],
         },
         data: {
-          anonymousAllowed: false
+          loggedIn: true
         }
       }
 

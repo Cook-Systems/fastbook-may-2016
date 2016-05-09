@@ -60,43 +60,57 @@
 
 <body ng-cloak>
 
-    <md-toolbar class="row" ng-controller="AppController as app">
+    <md-toolbar class="row" ng-controller="AppController as app" style="box-shadow: 2px 2px 5px #888888;">
       <div class="md-toolbar-tools">
+
         <h1>
           Fastbook
         </h1>
-        <md-button class="md-raised" aria-label="Login" ng-click="$state.go('login')" ng-if="app.accessService.isLoggedOut()">
-          Login
-        </md-button>
-        <md-button class="md-raised" aria-label="Logout" ng-click="app.accessService.logout()" ng-if="app.accessService.isLoggedIn()">
-          Logout
-        </md-button>
-        <md-button class="md-raised" aria-label="Register" ng-click="$state.go('register')" ng-if="app.accessService.isLoggedOut()">
-          Register
-        </md-button>
+
+        <md-divider></md-divider>
+
         <md-button class="md-raised" aria-label="Profile" ng-click="$state.go('profile', {id: app.accessService.currentUser.id})" ng-if="app.accessService.isLoggedIn()">
           Profile
         </md-button>
+
         <md-button class="md-raised" aria-label="Friend Requests" ng-click="$state.go('friendRequests', {id: app.accessService.currentUser.id})" ng-if="app.accessService.isLoggedIn()">
           Friend Requests
         </md-button>
 
-        <h3 ng-if="app.accessService.isLoggedIn()">
-          {{app.accessService.currentUser.firstName}} {{app.accessService.currentUser.lastName}}
-        </h3>
-      </div>
-      <div class="right centered row" ng-controller="NavController as nav">
+        <span flex></span>
+
+        <div class="centered row" ng-controller="NavController as nav">
           <div>
-            <input type="text" md-placeholder="Search" ng-model="nav.userName" ng-if="app.accessService.isLoggedIn()">
+            <input type="text" placeholder="Search" ng-model="nav.userName" ng-if="app.accessService.isLoggedIn()">
           </div>
-          <md-button class="md-raised" aria-label="Submit" ng-click="nav.searchNames()" ng-if="app.accessService.isLoggedIn()">
+          <md-button class="md-raised" aria-label="Submit" ng-click="nav.searchNames(); nav.userName = null;" ng-if="app.accessService.isLoggedIn()">
             Submit
           </md-button>
+        </div>
+
+        <span flex></span>
+
+        <h3 ng-if="app.accessService.isLoggedIn()" style="font-size: 14dp; float: right; text-align: right; margin-right: 5px;">
+          Logged in as:<br>{{app.accessService.currentUser.firstName}} {{app.accessService.currentUser.lastName}}
+        </h3>
+
+        <md-button class="md-raised" aria-label="Login" ng-click="$state.go('login')" ng-if="app.accessService.isLoggedOut()">
+          Login
+        </md-button>
+
+        <md-button class="md-raised" aria-label="Logout" ng-click="app.accessService.logout()" ng-if="app.accessService.isLoggedIn()">
+          Logout
+        </md-button>
+
+        <md-button class="md-raised" aria-label="Register" ng-click="$state.go('register')" ng-if="app.accessService.isLoggedOut()">
+          Register
+        </md-button>
+
       </div>
     </md-toolbar>
+
 <div ui-view>
 </div>
-
 
 </body>
 </html>

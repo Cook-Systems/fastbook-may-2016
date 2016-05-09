@@ -19,8 +19,6 @@
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
 
-    $mdThemingProvider.theme('docs-dark', 'default')
-      .primaryPalette('yellow')
-      .dark();
+    $mdThemingProvider.theme('default')
   }
 })();

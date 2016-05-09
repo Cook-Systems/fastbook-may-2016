@@ -34,10 +34,6 @@
         .then(() => $state.reload())
     };
 
-
-
-
     $log.debug('ReviewFriendRequestsController exit');
   }
-
 })();

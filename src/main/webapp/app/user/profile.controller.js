@@ -6,13 +6,13 @@
     .controller('ProfileController', ProfileController);
 
   ProfileController.$inject = [
-    'user', 'userService', 'accessService', 'userFriendList', 'groupService',
-    'userGroupList', '$state', '$stateParams','$log','userPosts', '$scope'
+    'user', 'accessService', 'userFriendList', 'userGroupList', 'userService',
+    'userPosts', '$scope', '$state', '$stateParams', '$log'
   ];
 
   function ProfileController(
-    user, userService, accessService, userFriendList, groupService,
-    userGroupList, $state, $stateParams, $log, userPosts, $scope
+    user, accessService, userFriendList, userGroupList, userService,
+    userPosts, $scope, $state, $stateParams, $log
   ) {
     $log.debug('ProfileController initializing...')
 
@@ -20,7 +20,7 @@
     this.loggedInUser = accessService.currentUser;
     this.friendList = userFriendList;
     this.groupList = userGroupList;
-    this.userService = userService;
+    this.postObject = userService.post;
     this.usersPosts = userPosts;
 
     $log.debug(this.profileUser)
@@ -40,13 +40,20 @@
       return Math.abs(ageDate.getUTCFullYear() - 1970);
     };
 
-    this.post=() => {
+    this.post = () => {
       $log.debug('Trying to post')
+      $log.debug(this.postObject.text)
+      this.postObject.user = this.loggedInUser;
+      $log.debug(this.postObject.user)
+      $log.debug(this.profileUser)
+      $log.debug(this.postObject)
       $scope.date = new Date();
-      this.userService.post.timestamp = $scope.date;
-      this.userService.post.user = this.loggedInUser;
-        userService.postToUserTimeline(this.userService.post, this.loggedInUser)
-            .then(() => $state.reload());
+      this.postObject.timestamp = $scope.date;
+      $log.debug(this.postObject)
+         return userService
+            .postToUserTimeline(this.profileUser.id, this.postObject)
+            .then($state.go($state.current, {}, {reload: true}));
+
     }
 
   }

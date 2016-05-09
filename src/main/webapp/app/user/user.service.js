@@ -13,7 +13,6 @@
     this.profileUser;
     this.post;
 
-
     this.setProfileUser = (user) => {
       $log.debug(user);
       this.profileUser = user;
@@ -63,10 +62,9 @@
         });
       }
 
-    this.postToUserTimeline = (post,loggedInUser) =>{
-
+    this.postToUserTimeline = (userId, post) =>{
       return $http
-        .post('./api/posts/user/' + loggedInUser.id, post)
+        .post('./api/posts/user/' + userId, post)
         .then(response => response.data)
     };
 
