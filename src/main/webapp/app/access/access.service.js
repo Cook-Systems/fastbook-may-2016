@@ -31,20 +31,26 @@
 
     this.login = (credentials) => {
       $log.debug('Calling AccessService.login()');
-      $http
+      return $http
         .post('./api/users/login', credentials.email) // returns response
         .then(response => response.data) // t response, r user
         .then(user => {
-          if (bcrypt.compareSync(credentials.password, user.password)) {
-            $log.debug('User Authenticated');
-            this.currentUser = user;
-            delete this.currentUser.password;
-            $log.debug(this.currentUser);
-            credentials = undefined;
-            $location.path('users/' + this.currentUser.id);
+          if (user.id == null) {
+            // user not found
+            $log.debug('accessService.login-user not found')
+            return null;
           } else {
-            $log.debug('invalid username or password');
-            this.currentuser = undefined;
+            if (bcrypt.compareSync(credentials.password, user.password)) {
+              $log.debug('User Authenticated');
+              this.currentUser = user;
+              delete this.currentUser.password;
+              $log.debug(this.currentUser);
+              credentials = undefined;
+              $location.path('users/' + this.currentUser.id);
+            } else {
+              $log.debug('invalid username or password');
+              this.currentuser = undefined;
+            }
           }
         })
         .catch(error => $log.debug(JSON.stringify(error)));

@@ -43,18 +43,24 @@
         return $http
           .post('./api/posts/group/' + groupId, post)
           .then(response => response.data)
+          .then($state.reload());
       }
 
       this.createGroup = (userId, group) => {
         return $http
           .post('./api/groups/' + userId, group)
-          .then(response => response.data)
+          .then(response => {
+            console.log('createdGroup: ' + response.data.id)
+            this.group = response.data;
+            $state.go('group', {groupId: this.group.id})
+          })
       }
 
       this.joinGroup = (groupId, loggedInUser) => {
         return $http
           .put('./api/groups/' + groupId, loggedInUser)
           .then(response => response.data)
+          .then($state.reload());
       }
 
       // not implemented yet
