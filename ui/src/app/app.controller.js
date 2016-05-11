@@ -1,12 +1,7 @@
-(()=>{
-  angular
-    .module('fastbook')
-    .controller('AppController', AppController);
+export default AppController
 
-    AppController.$inject = ['accessService'];
+AppController.$inject = ['accessService'];
 
-    function AppController(accessService) {
-      this.accessService = accessService;
-    }
-
-})();
+function AppController(accessService) {
+  this.accessService = accessService;
+}

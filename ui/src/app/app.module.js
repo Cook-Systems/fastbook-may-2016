@@ -7,18 +7,33 @@ import ngMessages from 'angular-messages'
 import ngSanitize from 'angular-sanitize'
 import uiRouter from 'angular-ui-router'
 
-angular
-  .module('fastbook', [
-    ngAnimate,
-    ngAria,
-    ngMaterial,
-    ngMessages,
-    ngSanitize,
-    uiRouter,
-    'ui.router',
-    'dtrw.bcrypt',
-    'fastbook.user',
-    'fastbook.access',
-    'fastbook.friend',
-    'fastbook.group'
-  ])
+import fbUser from './user/user.module'
+import fbAccess from './access/access.module'
+import fbFriend from './friend/friend.module'
+import fbGroup from './group/group.module'
+
+import controller from './app.controller'
+import config from './app.config'
+import run from './app.run'
+
+import 'normalize.css'
+import './index.css'
+
+export default
+  angular
+    .module('fastbook', [
+      ngAnimate,
+      ngAria,
+      ngMaterial,
+      ngMessages,
+      ngSanitize,
+      uiRouter,
+      fbUser,
+      fbAccess,
+      fbFriend,
+      fbGroup
+    ])
+    .controller(controller.name, controller)
+    .config(config)
+    .run(run)
+    .name

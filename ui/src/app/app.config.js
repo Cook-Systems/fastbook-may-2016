@@ -1,24 +1,18 @@
-'use strict';
+export default config
 
-(() => {
-  angular
-  .module('fastbook')
-  .config(config);
+config.$inject = [
+  '$urlRouterProvider',
+  '$locationProvider',
+  '$mdThemingProvider'
+];
 
-  config.$inject = [
-    '$urlRouterProvider',
-    '$locationProvider',
-    '$mdThemingProvider'
-  ];
+function config(
+  $urlRouterProvider,
+  $locationProvider,
+  $mdThemingProvider
+) {
+  $urlRouterProvider.otherwise('/');
+  $locationProvider.html5Mode(true);
 
-  function config(
-    $urlRouterProvider,
-    $locationProvider,
-    $mdThemingProvider
-  ) {
-    $urlRouterProvider.otherwise('/');
-    $locationProvider.html5Mode(true);
-
-    $mdThemingProvider.theme('default')
-  }
-})();
+  $mdThemingProvider.theme('default')
+}
