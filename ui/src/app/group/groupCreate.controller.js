@@ -26,4 +26,3 @@ function GroupCreateController(
             .createGroup(accessService.currentUser.id, this.group)
         };
   }
-}

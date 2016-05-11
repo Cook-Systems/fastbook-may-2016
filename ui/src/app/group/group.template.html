@@ -21,9 +21,6 @@
       <md-card-content layout="column">
         <md-virtual-repeat-container flex style="height: 800vh;">
           <div md-virtual-repeat="entry in $group.posts" class="repeated-item-vertical" style="padding-bottom: 5px;">
-              <!-- <md-card-avatar>
-              <img class="md-user-avatar md-media-sm" src="app/user/zz_userdefaultphoto_small.png">
-            </md-card-avatar> -->
             <p flex style="font-size: 12dp;">
 
               <b>
@@ -59,9 +56,6 @@
     <md-card-content layout="column">
       <md-virtual-repeat-container flex style="height: 100vh;">
         <div md-virtual-repeat="user in $group.groupMembers" class="repeated-item-vertical" style="padding-top: 5px; padding-bottom: 5px; height: 30px;">
-              <!-- <md-card-avatar>
-              <img class="md-user-avatar md-media-sm" src="app/user/zz_userdefaultphoto_small.png">
-            </md-card-avatar> -->
           <a ui-sref="profile({id: user.id})" style="display: block; padding-top: 5px; padding-bottom: 5px;"><b>{{user.firstName}} {{user.lastName}}</b></a>
           <md-divider style="padding-top: 5px; padding-bottom: 5px;"></md-divider>
         </div>
