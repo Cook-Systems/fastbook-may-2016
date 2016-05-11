@@ -17,6 +17,7 @@ import config from './app.config'
 import run from './app.run'
 
 import 'normalize.css'
+import 'angular-material/angular-material.css'
 import './index.css'
 
 export default

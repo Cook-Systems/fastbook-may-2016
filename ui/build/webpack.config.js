@@ -28,7 +28,7 @@ const entry = {
 const output = {
   filename: '[name].js',
   path: path.resolve(__dirname, '../../src/main/webapp/bundled'),
-  publicPath: '/bundled'
+  publicPath: '/bundled/'
 }
 
 const plugins = [
@@ -73,13 +73,20 @@ const loaders = [{
   ],
   loaders: [
     'style',
-    ExtractTextPlugin.extract([
-      `css?${{
-        minimize: true,
-        sourceMap: true
-      }}`
-    ])
+    ExtractTextPlugin.extract(['css?minimize&sourceMap'])
   ]
+}, {
+  // asset loading as url/data:url
+  test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|ico|json)$/,
+  include: path.resolve(__dirname, '../src'),
+  exclude: /node_modules/,
+  loaders: ['url?limit=10000&name=[path][name].[ext]?[hash]']
+}, {
+  // html loading with angular template caching
+  test: /\.html$/,
+  include: path.resolve(__dirname, '../src'),
+  exclude: /node_modules/,
+  loaders: ['ngtemplate', 'html?interpolate'] // query params pass options to loaders
 }]
 
 module.exports = {
