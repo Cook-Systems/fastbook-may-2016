@@ -10,6 +10,7 @@
             'luegg.directives',
             'fastbook.user',
             'fastbook.access',
+            'fastbook.chat',
             'fastbook.friend',
             'fastbook.group'
         ])
@@ -59,14 +60,14 @@
                 }
             }
         })
-        .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
-            $scope.close = function() {
-                $mdSidenav('left').close()
-                    .then(function() {
-                        $log.debug("close LEFT is done");
-                    });
-            };
-        })
+        // .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
+        //     $scope.close = function() {
+        //         $mdSidenav('left').close()
+        //             .then(function() {
+        //                 $log.debug("close LEFT is done");
+        //             });
+        //     };
+        // })
         .controller('RightCtrl', function($scope, $timeout, $mdSidenav, $log) {
             $scope.close = function() {
                 $mdSidenav('right').close()

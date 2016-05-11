@@ -1,54 +1,54 @@
-/**
- *
- */
+'use strict';
 
-angular.module('fastbook').controller('ChatController', function($scope, $log, accessService) {
-	var controller = this;
+(() => {
+  angular
+    .module('fastbook.chat')
+    .controller('ChatController', ChatController);
 
+    ChatController.$inject = [
+      '$scope', '$log', 'accessService'
+    ];
 
-
-			$log.debug('trying to establish my web_socket');
-
-	var socket = new WebSocket("ws://localhost:8080/fastbook/chat");
-
-			$log.debug('new web_socket established');
-
-	socket.onclose = function() {
-
-		//periodically try to reconnect
-
-	}
-
-	socket.onmessage = function(message) {
-
-		controller.messages.push(JSON.parse(message.data));
-		$scope.$apply();
-	};
+    function ChatController($scope, $log, accessService) {
 
 
-	controller.visible = true;
-	controller.expandOnNew = true;
+			accessService.socket.onclose = function() {
 
-	controller.messages = [];
+				//periodically try to reconnect
 
+			}
 
-	controller.sendMessage = (message) => {
-		$log.debug('trying to send a message: '+accessService.currentUser.firstName)
-		if (message !== '') {
-		// var username = this.loggedInUser.userName;
-			var messaget = {
-				'username' : accessService.currentUser.firstName,
-				'content' : message
+			accessService.socket.onmessage =(message) => {
+
+				this.messages.push(JSON.parse(message.data));
+				$scope.$apply();
 			};
 
-			$log.debug(messaget)
 
-			socket.send(JSON.stringify(messaget));
-			$log.debug('sent a message')
-			// $log.debug()
+			// controller.visible = true;
+			// controller.expandOnNew = true;
 
-		}
-	};
+			this.messages = [];
 
 
-});
+			this.sendMessage = (message) => {
+				$log.debug('trying to send a message: '+accessService.currentUser.firstName)
+				if (message !== '') {
+				// var username = this.loggedInUser.userName;
+					var messaget = {
+						'username' : accessService.currentUser.firstName,
+						'content' : message
+					};
+
+					$log.debug(messaget)
+
+					accessService.socket.send(JSON.stringify(messaget));
+					$log.debug('sent a message')
+					// $log.debug()
+
+				}
+				};
+    }
+
+
+})();

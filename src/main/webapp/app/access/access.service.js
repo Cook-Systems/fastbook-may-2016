@@ -9,6 +9,7 @@
 
   function AccessService(bcrypt, $http, $log, $location, $state) {
     this.currentUser;
+    this.socket= new WebSocket("ws://localhost:8080/fastbook/chat");
 
     this.register = (user) => {
       let salt = bcrypt.genSaltSync(4);
@@ -25,6 +26,7 @@
           } else {
             this.currentUser = user;
             $location.path('users/' + this.currentUser.id);
+            // this.socket = new WebSocket("ws://localhost:8080/fastbook/chat");
           }
         });
     };
@@ -47,6 +49,8 @@
               $log.debug(this.currentUser);
               credentials = undefined;
               $location.path('users/' + this.currentUser.id);
+              // this.socket = new WebSocket("ws://localhost:8080/fastbook/chat");
+
             } else {
               $log.debug('invalid username or password');
               this.currentuser = undefined;
