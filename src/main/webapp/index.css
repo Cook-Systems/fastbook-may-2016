@@ -221,3 +221,10 @@ md-content.md-default-theme {
     height: 100%;
     display: inline-block;
 }
+
+.chatBox {
+  max-height: 450px;
+  max-width: 270px;
+  border-style: double;
+  overflow-y: scroll;
+}
