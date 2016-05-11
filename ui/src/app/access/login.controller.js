@@ -1,25 +1,19 @@
-'use strict';
+export default LoginController
 
-(() => {
-  angular
-    .module('fastbook.access')
-    .controller('LoginController', LoginController);
+LoginController.$inject = ['accessService', '$state', '$window', '$log'];
 
-  LoginController.$inject = ['accessService', '$state', '$window', '$log'];
+function LoginController(accessService, $state, $window, $log) {
+  this.credentials;
 
-  function LoginController(accessService, $state, $window, $log) {
-    this.credentials;
-
-    $log.debug('Creating LoginController')
-    this.credentials;
-    this.login = () => {
-      $log.debug('Calling LoginController.login()')
-      accessService
-        .login(this.credentials)
-        .then(result => {
-          // User or password invalid - we don't come back if the user logs in
-          this.errorMessage = 'Invalid email or password!';
-        })
-    }
+  $log.debug('Creating LoginController')
+  this.credentials;
+  this.login = () => {
+    $log.debug('Calling LoginController.login()')
+    accessService
+      .login(this.credentials)
+      .then(result => {
+        // User or password invalid - we don't come back if the user logs in
+        this.errorMessage = 'Invalid email or password!';
+      })
   }
-})();
+}

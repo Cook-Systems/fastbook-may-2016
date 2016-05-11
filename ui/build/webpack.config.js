@@ -51,10 +51,11 @@ const plugins = [
 ]
 
 const resolve = {
-  extensions: ['', '.js', '.css'],
+  extensions: ['', '.js', '.css', '.html'],
   modulesDirectories: [
     'node_modules',
-    'lib'
+    'lib',
+    'assets'
   ]
 }
 

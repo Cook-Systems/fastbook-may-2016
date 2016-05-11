@@ -1,28 +1,27 @@
-'use strict';
+import registerTemplateUrl from './register.template'
+import RegisterController from './register.controller'
 
-(() => {
-  angular
-    .module('fastbook.access')
-    .constant('accessRoutes', {
+import loginTemplateUrl from './login.template'
+import LoginController from './login.controller'
 
-        register: {
-          url: '/',
-          templateUrl: 'app/access/register.template.html',
-          controller: 'RegisterController',
-          controllerAs: '$register',
-          data: {
-            loggedIn: false
-          }
-        },
+export default {
+  register: {
+    url: '/',
+    templateUrl: registerTemplateUrl,
+    controller: RegisterController,
+    controllerAs: '$register',
+    data: {
+      loggedIn: false
+    }
+  },
 
-        login: {
-          url: '/login',
-          templateUrl: 'app/access/login.template.html',
-          controller: 'LoginController',
-          controllerAs: '$login',
-          data: {
-            loggedIn: false
-          }
-        }
-      });
-  })();
+  login: {
+    url: '/login',
+    templateUrl: loginTemplateUrl,
+    controller: LoginController,
+    controllerAs: '$login',
+    data: {
+      loggedIn: false
+    }
+  }
+}

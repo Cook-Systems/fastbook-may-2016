@@ -31,12 +31,12 @@
                   {{entry.post.user.firstName}} {{entry.post.user.lastName}}
                 </a>
 
-                <img ng-src="app/user/like.jpg"/> {{entry.likeCount}}
+                <img ng-src="${require(`like.jpg`)}"/> {{entry.likeCount}}
                 <md-button class="md-raised" ng-click="LIKEPOST" ng-if="!entry.status">
-                  <img ng-src="app/user/like.jpg"/> Like
+                  <img ng-src="${require(`like.jpg`)}"/> Like
                 </md-button>
 
-                <img ng-src="app/user/Check_Mark.png" ng-if="entry.status"/>
+                <img ng-src="${require(`Check_Mark.png`)}" ng-if="entry.status"/>
               </b>
               </br>
               {{entry.post.text}}

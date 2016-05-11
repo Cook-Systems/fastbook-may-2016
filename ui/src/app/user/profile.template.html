@@ -11,7 +11,7 @@
             <span class="md-subhead">User since {{$profileCtrl.profileUser.joinDate | date}}</span>
           </md-card-header-text>
         </md-card-header>
-        <img ng-src="${require(`./zz_userdefaultphoto_large.png`)}" class="md-card-image">
+        <img ng-src="${require(`zz_userdefaultphoto_large.png`)}" class="md-card-image">
         <md-card-actions layout="row" layout-align="start center">
           <!-- Start Friend Relation Component -->
           <div ng-controller="FriendRelationController as relationCtrl">
@@ -77,12 +77,12 @@
                     {{entry.post.user.firstName}} {{entry.post.user.lastName}}
                   </a>
 
-                  <img ng-src="${require(`./like.jpg`)}"/> {{entry.likeCount}}
+                  <img ng-src="${require(`like.jpg`)}"/> {{entry.likeCount}}
                   <md-button class="md-raised" ng-click="LIKEPOST" ng-if="!entry.status">
-                    <img ng-src="${require(`./like.jpg`)}"/> Like
+                    <img ng-src="${require(`like.jpg`)}"/> Like
                   </md-button>
 
-                  <img ng-src="${require(`./Check_Mark.png`)}" ng-if="entry.status"/>
+                  <img ng-src="${require(`Check_Mark.png`)}" ng-if="entry.status"/>
                 </b>
                 </br>
                 {{entry.post.text}}

@@ -1,41 +1,43 @@
-(() => {
-  angular
-    .module('fastbook.group')
-    .constant('groupRoutes', {
+import GroupController from './group.controller'
+import groupTemplateUrl from './group.template'
 
-      group: {
-        url: '/groups/{groupId}',
-        templateUrl: 'app/group/group.template.html',
-        controller: 'GroupController',
-        controllerAs: '$group',
-        resolve: {
-          chosenGroup: ['groupService', '$stateParams', function(groupService, $stateParams) {
-            return groupService.getGroup($stateParams.groupId);
-          }],
-          groupMembers: ['groupService', '$stateParams', function (groupService, $stateParams) {
-            return groupService.getUsersInGroup($stateParams.groupId);
-          }],
-          posts: ['groupService', '$stateParams', function (groupService, $stateParams) {
-            return groupService.getGroupPosts($stateParams.groupId);
-          }]
-          //groupOwner: ['groupService', '$stateParams', function (groupService, $stateParams) {
-          //  return groupService.getGroupsOwner($stateParams.groupId);
-        //  }]
-        },
-        data: {
-          loggedIn: true
-        }
-      },
+import GroupCreateController from './groupCreate.controller'
+import groupCreateTemplateUrl from './group-create.template'
 
-      groupCreate: {
-        url: '/groups/create',
-        templateUrl: 'app/group/group-create.template.html',
-        controller: 'GroupCreateController',
-        controllerAs: '$groupCreate',
-        data: {
-          loggedIn: true
-        }
-      }
+export default {
 
-    })
-})();
+  group: {
+    url: '/groups/{groupId}',
+    templateUrl: groupTemplateUrl,
+    controller: GroupController,
+    controllerAs: '$group',
+    resolve: {
+      chosenGroup: ['groupService', '$stateParams', function(groupService, $stateParams) {
+        return groupService.getGroup($stateParams.groupId);
+      }],
+      groupMembers: ['groupService', '$stateParams', function (groupService, $stateParams) {
+        return groupService.getUsersInGroup($stateParams.groupId);
+      }],
+      posts: ['groupService', '$stateParams', function (groupService, $stateParams) {
+        return groupService.getGroupPosts($stateParams.groupId);
+      }]
+      //groupOwner: ['groupService', '$stateParams', function (groupService, $stateParams) {
+      //  return groupService.getGroupsOwner($stateParams.groupId);
+    //  }]
+    },
+    data: {
+      loggedIn: true
+    }
+  },
+
+  groupCreate: {
+    url: '/groups/create',
+    templateUrl: groupCreateTemplateUrl,
+    controller: GroupCreateController,
+    controllerAs: '$groupCreate',
+    data: {
+      loggedIn: true
+    }
+  }
+
+}
