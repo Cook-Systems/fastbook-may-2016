@@ -225,6 +225,12 @@ md-content.md-default-theme {
 .chatBox {
   max-height: 450px;
   max-width: 270px;
-  border-style: double;
+  border-radius: 4px;
+  border-style: inset;
   overflow-y: scroll;
 }
+
+/*.message{
+  border-radius: 2px;
+  border-style: ridge;
+}*/

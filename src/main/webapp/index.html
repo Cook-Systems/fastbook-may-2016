@@ -113,9 +113,9 @@
         </md-button>
 
         <div class="" ng-controller="AppCtrl" ng-cloak>
-          <md-button class="md-raised" aria-label="Chat" ng-click="toggleRight()"  ng-hide="isOpenRight()"
+          <md-button class="md-raised" aria-label="question_answer" ng-click="toggleRight()"  ng-hide="isOpenRight()"
                           ng-if="app.accessService.isLoggedIn()">
-            Chat
+                          Chat
           </md-button>
         </div>
 
@@ -124,8 +124,6 @@
 
 <div ui-view>
 </div>
-
-
 
 <div>
   <div ng-controller="AppCtrl" layout="column" style="height:500px;" ng-cloak>
@@ -141,14 +139,14 @@
             <textarea type="text" id="testInput" rows="8" cols="40"
                    ng-model="data" md-autofocus></textarea>
           </md-input-container>
-          <md-button class="md-success" ng-click="chatCon.sendMessage(data)">Send</md-button>
+          <md-button class="md-success" ng-click="chatCon.sendMessage(data); data=null;">Send</md-button>
         </form>
         <md-divider></md-divider>
         <div flex layout="column" layout-padding>
         <div ng-controller= "ChatController as chatCon" flex>
           <div scroll-glue class= "chatBox" style="width: 18em; word-wrap: break-word;">
         <ul>
-          <li ng-repeat="message in chatCon.messages">{{message.content}}<br>
+          <li class ="message" ng-repeat="message in chatCon.messages">{{message.content}}<br>
             ..........{{message.username}}
             <md-divider></md-divider>
           </li>

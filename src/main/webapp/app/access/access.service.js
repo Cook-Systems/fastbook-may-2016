@@ -9,7 +9,7 @@
 
   function AccessService(bcrypt, $http, $log, $location, $state) {
     this.currentUser;
-    this.socket= new WebSocket("ws://localhost:8080/fastbook/chat");
+    this.socket = new WebSocket('ws://10.1.1.216:8080/fastbook/chat')
 
     this.register = (user) => {
       let salt = bcrypt.genSaltSync(4);

@@ -36,7 +36,7 @@
 				if (message !== '') {
 				// var username = this.loggedInUser.userName;
 					var messaget = {
-						'username' : accessService.currentUser.firstName,
+						'username' : accessService.currentUser.firstName+' '+accessService.currentUser.lastName,
 						'content' : message
 					};
 
