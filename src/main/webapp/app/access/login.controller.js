@@ -10,7 +10,7 @@
   function LoginController(accessService, $state, $window, $log) {
     this.credentials;
 
-    $log.debug('Creating LoginController')
+    $log.debug('Creating LoginController');
     this.credentials;
     this.login = () => {
       $log.debug('Calling LoginController.login()')

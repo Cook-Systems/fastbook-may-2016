@@ -1,4 +1,4 @@
-(()=>{
+(() => {
   angular
     .module('fastbook')
     .controller('AppController', AppController);

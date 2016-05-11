@@ -1,0 +1,17 @@
+<div class="full-screen">
+  <div ng-repeat="message in chat.messages" class="repeated-item-vertical minSize">
+    <div>
+      {{message.text}}
+    </div>
+    <div>
+      {{message.username}}
+    </div>
+  </div>
+
+  <div>
+    <input ng-model="message">
+    <md-button class="md-raised waves-effect waves-light btn" aria-label="Send" ng-click="chat.sendMessage(message)">
+      Send
+    </md-button>
+  </div>
+</div>

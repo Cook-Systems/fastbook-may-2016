@@ -11,7 +11,8 @@
       'fastbook.user',
       'fastbook.access',
       'fastbook.friend',
-      'fastbook.group'
+      'fastbook.group',
+      'fastbook.chat'
     ])
 
 })();
