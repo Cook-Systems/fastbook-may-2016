@@ -10,3 +10,4 @@ export default
     .constant('groupRoutes', groupRoutes)
     .service('groupService', groupService)
     .config(config)
+    .name

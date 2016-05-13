@@ -10,3 +10,4 @@ export default
     .constant('accessRoutes', accessRoutes)
     .service('accessService', AccessService)
     .config(config)
+    .name

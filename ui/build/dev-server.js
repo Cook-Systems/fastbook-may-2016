@@ -18,7 +18,7 @@ app.use(devMiddleware(compiler, {
 }))
 app.use(hotMiddleware(compiler))
 
-app.get('/*', (req, res) =>
+app.get('/fastbook/*', (req, res) =>
   res.sendFile(path.resolve(__dirname, '../../src/main/webapp/index.html'))
 )
 
